@@ -19,6 +19,11 @@
       return 'bg-red-200';
     }
 
+    const formatWaitTime = (minutes) => {
+      if (minutes < 60) return `${minutes} min`;
+      return `${Math.floor(minutes / 60)} hr ${minutes % 60} min`;
+    }
+
     const renderCard = ({ name, type, wait_minutes, lanes_open, status }) => {
       const card = document.createElement('div');
       card.className = `p-6 rounded-lg shadow-lg flex items-center ${getColor(wait_minutes)}`;
@@ -26,7 +31,7 @@
         <div class="flex-shrink-0 p-2">${type === 'pedestrian' ? '🚶' : '🚗'}</div>
         <div>
           <h2 class="text-xl font-semibold">${name}</h2>
-          <p class="mt-1 text-gray-700">Wait: <span class="font-bold">${wait_minutes} min</span></p>
+          <p class="mt-1 text-gray-700">Wait: <span class="font-bold">${formatWaitTime(wait_minutes)}</span></p>
           <p class="mt-1 text-gray-700">Lanes Open: <span class="font-bold">${lanes_open}</span></p>
         </div>
       `;
