@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Border Wait Times</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gray-100 min-h-screen p-6">
+  <h1 class="text-3xl font-bold mb-6 text-center">Border Crossing Wait Times</h1>
+  <div id="cards" class="grid grid-cols-1 md:grid-cols-2 gap-6"></div>
+
+  <script>
+    const getColor = (wait) => {
+      if (wait < 60) return 'bg-green-200';
+      if (wait < 120) return 'bg-yellow-200';
+      return 'bg-red-200';
+    }
+
+    const renderCard = ({ name, type, wait_minutes, lanes_open, status }) => {
+      const card = document.createElement('div');
+      card.className = `p-6 rounded-lg shadow-lg flex items-center ${getColor(wait_minutes)}`;
+      card.innerHTML = `
+        <div class="flex-shrink-0 p-2">${type === 'pedestrian' ? '🚶' : '🚗'}</div>
+        <div>
+          <h2 class="text-xl font-semibold">${name}</h2>
+          <p class="mt-1 text-gray-700">Wait: <span class="font-bold">${wait_minutes} min</span></p>
+          <p class="mt-1 text-gray-700">Lanes Open: <span class="font-bold">${lanes_open}</span></p>
+        </div>
+      `;
+      return card;
+    }
+
+    const loadTimes = async() => {
+      try {
+        const res = await fetch('/waittimes');
+        const data = await res.json();
+        const container = document.getElementById('cards');
+        container.innerHTML = '';
+
+        const crossings = [
+          { key: 'otay_mesa', name: 'Otay Mesa (Car)', type: 'car', ...data.otay_mesa.lanes.car_lanes.ready_lanes },
+          { key: 'otay_mesa_s', name: 'Otay Mesa (SENTRI)', type: 'car', ...data.otay_mesa.lanes.car_lanes.sentri },
+          { key: 'san_ysidro', name: 'San Ysidro (Car)', type: 'car', ...data.san_ysidro.lanes.car_lanes.ready_lanes },
+          { key: 'san_ysidro_s', name: 'San Ysidro (SENTRI)', type: 'car', ...data.san_ysidro.lanes.car_lanes.sentri }
+        ];
+
+        crossings.forEach(c => {
+          container.appendChild(renderCard(c));
+        });
+      } catch (e) {
+        console.error('Error loading times', e);
+      }
+    }
+
+    loadTimes();
+
+    // TODO: uncomment this
+    // setInterval(loadTimes, 5 * 60 * 1000);
+  </script>
+</body>
+
+</html>
