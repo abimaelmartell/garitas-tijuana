@@ -44,6 +44,11 @@ document.addEventListener('DOMContentLoaded', async () => {
 
       const lastUpdated = document.getElementById('last-updated');
       lastUpdated.textContent = new Date().toLocaleString();
+
+      const loading = document.getElementById('loading');
+      loading.classList.add('hidden');
+
+      lastUpdated.classList.remove('hidden');
     } catch (e) {
       console.error('Error loading times', e);
     }
