@@ -2,9 +2,10 @@ const express = require("express");
 const axios = require("axios");
 const path = require("path");
 
-const app = express();
 const PORT = process.env.PORT || 3000;
 const CBP_URL = "https://bwt.cbp.gov/api/waittimes";
+
+const app = express();
 
 app.use(express.static(path.join(__dirname, "public")));
 
