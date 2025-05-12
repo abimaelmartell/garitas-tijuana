@@ -1,31 +1,43 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Border Wait Times</title>
+    <link rel="stylesheet" href="output.css" type="text/css" />
+  </head>
 
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Border Wait Times</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-</head>
+  <body class="bg-gray-100 min-h-screen p-6">
+    <div class="max-w-4xl mx-auto">
+      <h1 class="text-3xl font-bold mb-6 text-center">
+        Border Crossing Wait Times
+      </h1>
 
-<body class="bg-gray-100 min-h-screen p-6">
-  <div class="max-w-4xl mx-auto">
-    <h1 class="text-3xl font-bold mb-6 text-center">Border Crossing Wait Times</h1>
+      <p class="text-center text-gray-500 mb-6 hidden" id="last-updated">
+        Updated at <span id="last-updated"></span>
+      </p>
 
-    <p class="text-center text-gray-500 mb-6 hidden" id="last-updated">Updated at <span id="last-updated"></span></p>
+      <div id="cards" class="grid grid-cols-1 md:grid-cols-2 gap-6"></div>
 
-    <div id="cards" class="grid grid-cols-1 md:grid-cols-2 gap-6"></div>
+      <div id="loading" class="text-center py-12">
+        <div
+          class="inline-block animate-spin rounded-full h-8 w-8 border-4 border-gray-300 border-t-blue-600"
+        ></div>
+        <p class="mt-4 text-gray-600">Loading wait times...</p>
+      </div>
 
-    <div id="loading" class="text-center py-12">
-      <div class="inline-block animate-spin rounded-full h-8 w-8 border-4 border-gray-300 border-t-blue-600"></div>
-      <p class="mt-4 text-gray-600">Loading wait times...</p>
+      <p class="text-center text-gray-500 mt-6 text-xs">
+        Data reported by
+        <a
+          target="_blank"
+          rel="noopener noreferrer"
+          href="https://www.cbp.gov/"
+          class="text-blue-500 hover:underline"
+          >CBP</a
+        >
+      </p>
     </div>
 
-    <p class="text-center text-gray-500 mt-6 text-xs">Data reported by <a target="_blank" rel="noopener noreferrer"
-        href="https://www.cbp.gov/" class="text-blue-500 hover:underline">CBP</a></p>
-  </div>
-
-  <script src="main.js"></script>
-</body>
-
+    <script src="main.js"></script>
+  </body>
 </html>
